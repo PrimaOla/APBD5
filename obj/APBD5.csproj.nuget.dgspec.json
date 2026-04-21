@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\48797\\szkolne\\APBD5\\APBD5\\APBD5.csproj": {}
+    "C:\\Users\\48797\\szkolne\\APBD5\\APBD5.csproj": {}
   },
   "projects": {
-    "C:\\Users\\48797\\szkolne\\APBD5\\APBD5\\APBD5.csproj": {
+    "C:\\Users\\48797\\szkolne\\APBD5\\APBD5.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\48797\\szkolne\\APBD5\\APBD5\\APBD5.csproj",
+        "projectUniqueName": "C:\\Users\\48797\\szkolne\\APBD5\\APBD5.csproj",
         "projectName": "APBD5",
-        "projectPath": "C:\\Users\\48797\\szkolne\\APBD5\\APBD5\\APBD5.csproj",
+        "projectPath": "C:\\Users\\48797\\szkolne\\APBD5\\APBD5.csproj",
         "packagesPath": "C:\\Users\\48797\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\48797\\szkolne\\APBD5\\APBD5\\obj\\",
+        "outputPath": "C:\\Users\\48797\\szkolne\\APBD5\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -61,6 +61,9 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
