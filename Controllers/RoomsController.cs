@@ -11,10 +11,25 @@ namespace APBD5.Controllers
         private static List<Room> Rooms => InMemoryStore.Rooms;
     
     // GET: api/rooms
+    // GET: api/rooms?minCapacity=20&hasProjector=true&activeOnly=true
     [HttpGet]
-    public IActionResult GetAll()
+    public IActionResult GetAll(
+        [FromQuery] int? minCapacity,
+        [FromQuery] bool? hasProjector,
+        [FromQuery] bool? activeOnly)
     {
-        return Ok(Rooms);
+        IEnumerable<Room> result = Rooms;
+
+        if (minCapacity.HasValue)
+            result = result.Where(r => r.Capacity >= minCapacity.Value);
+
+        if (hasProjector.HasValue)
+            result = result.Where(r => r.HasProjector == hasProjector.Value);
+
+        if (activeOnly == true)
+            result = result.Where(r => r.IsActive);
+
+        return Ok(result.ToList());
     }
 
     // GET: api/rooms/{id}
@@ -26,29 +41,11 @@ namespace APBD5.Controllers
         return Ok(room);
     }
 
-    // GET: api/rooms/buinding/{buildlingCode}
+    // GET: api/rooms/building/{buildingCode}
     [HttpGet("building/{buildingCode}")]
     public IActionResult GetByBuilding(string buildingCode)
     {
-        var result = Rooms.Where( r => r.BuildingCode == buildingCode).ToList();
-        return Ok(result);
-    }
-
-    // GET: api/rooms??minCapacity=20&hasProjector=true&activeOnly=true
-    [HttpGet("filter")]
-    public IActionResult Filter([FromQuery] int? minCapacity, [FromQuery] bool? hasProjector, [FromQuery] bool? activeOnly)
-    {
-        var result = Rooms.AsQueryable();
-
-        if (minCapacity.HasValue)
-            result = result.Where(r => r.Capacity >= minCapacity);
-
-        if (hasProjector.HasValue)
-            result = result.Where(r => r.HasProjector == hasProjector);
-
-        if (activeOnly == true)
-            result = result.Where(r => r.IsActive);
-
+        var result = Rooms.Where(r => r.BuildingCode == buildingCode).ToList();
         return Ok(result);
     }
 
