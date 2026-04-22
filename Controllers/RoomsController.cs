@@ -51,20 +51,20 @@ namespace APBD5.Controllers
 
     // POST: api/rooms
     [HttpPost]
-    public IActionResult Create(Room room)
+    public IActionResult Create([FromBody] Room room)
     {
-        room.Id = Rooms.Max(r => r.Id) + 1;
+        room.Id = Rooms.Count == 0 ? 1 : Rooms.Max(r => r.Id) + 1;
         Rooms.Add(room);
 
-        return CreatedAtAction(nameof(GetById), new { id = room.Id}, room);
+        return CreatedAtAction(nameof(GetById), new { id = room.Id }, room);
     }
 
     // PUT: api/rooms/{id}
     [HttpPut("{id}")]
-    public IActionResult Update(int id, Room updateRoom)
+    public IActionResult Update(int id, [FromBody] Room updateRoom)
     {
         var room = Rooms.FirstOrDefault(r => r.Id == id);
-        if (room == null) return NotFound(); 
+        if (room == null) return NotFound();
 
         room.Name = updateRoom.Name;
         room.BuildingCode = updateRoom.BuildingCode;
@@ -76,13 +76,15 @@ namespace APBD5.Controllers
         return Ok(room);
     }
 
-
     // DELETE: api/rooms/{id}
     [HttpDelete("{id}")]
     public IActionResult Delete(int id)
     {
         var room = Rooms.FirstOrDefault(r => r.Id == id);
         if (room == null) return NotFound();
+
+        if (InMemoryStore.Reservations.Any(r => r.RoomId == id))
+            return Conflict(new { message = "Cannot delete room with existing reservations." });
 
         Rooms.Remove(room);
 
