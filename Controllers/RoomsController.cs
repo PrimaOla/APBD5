@@ -4,7 +4,7 @@ using APBD5.Models;
 namespace APBD5.Controllers 
 {
     [ApiController]
-    [Route("api/controller")]
+    [Route("api/[controller]")]
     public class RoomsController : ControllerBase
     {
         private static List<Room> Rooms = new()
@@ -13,6 +13,7 @@ namespace APBD5.Controllers
             new Room { Id = 2, Name = "B1", BuildingCode = "B", Floor = 2, Capacity = 30, HasProjector = false, IsActive = true },
             new Room { Id = 3, Name = "C1", BuildingCode = "A", Floor = 3, Capacity = 15, HasProjector = true, IsActive = false }
         };
+    
     // GET: api/rooms
     [HttpGet]
     public IActionResult GetAll()
