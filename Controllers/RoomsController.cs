@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using APBD5.Models; 
+using APBD5.Models;
+using APBD5.Data;
 
 namespace APBD5.Controllers 
 {
@@ -7,12 +8,7 @@ namespace APBD5.Controllers
     [Route("api/[controller]")]
     public class RoomsController : ControllerBase
     {
-        private static List<Room> Rooms = new()
-        {
-            new Room { Id = 1, Name = "A1", BuildingCode = "A", Floor = 1, Capacity = 20, HasProjector = true, IsActive = true },
-            new Room { Id = 2, Name = "B1", BuildingCode = "B", Floor = 2, Capacity = 30, HasProjector = false, IsActive = true },
-            new Room { Id = 3, Name = "C1", BuildingCode = "A", Floor = 3, Capacity = 15, HasProjector = true, IsActive = false }
-        };
+        private static List<Room> Rooms => InMemoryStore.Rooms;
     
     // GET: api/rooms
     [HttpGet]
